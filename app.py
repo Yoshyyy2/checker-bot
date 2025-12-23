@@ -256,9 +256,13 @@ class CardChecker:
         except Exception as e:
             return {'status': 'error', 'message': f'Error: {str(e)}', 'icon': '❌', 'card_info': card_info}
 
-@app.route('/')
+@app.route('/', methods=['GET', 'HEAD'])
 def index():
     return render_template('index.html')
+
+@app.route('/health', methods=['GET', 'HEAD'])
+def health():
+    return jsonify({'status': 'ok', 'message': 'Card Checker is running'}), 200
 
 @app.route('/api/check', methods=['POST'])
 def check_card():
